@@ -1,0 +1,355 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ resort.name }} - Resort Details</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+        }
+
+        .details-container {
+            max-width: 1100px;
+            margin: 50px auto;
+        }
+
+        .resort-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        }
+
+        .resort-image {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        .category {
+            display: inline-block;
+            background: #f1f1f1;
+            padding: 7px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .resort-name {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 28px;
+            font-weight: 700;
+            color: #f35525;
+            margin-bottom: 25px;
+        }
+
+        .description {
+            color: #666;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-top: 35px;
+            margin-bottom: 20px;
+        }
+
+        .facility-box {
+            background: #f8f8f8;
+            border-radius: 10px;
+            padding: 18px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .facility-icon {
+            font-size: 25px;
+            margin-bottom: 8px;
+        }
+
+        .facility-name {
+            font-weight: 600;
+        }
+
+        .available {
+            color: #198754;
+        }
+
+        .not-available {
+            color: #999;
+        }
+
+        .book-btn {
+            background: #f35525;
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 25px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .book-btn:hover {
+            background: #d94317;
+            color: white;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #555;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container details-container">
+
+    <a href="{% url 'listing_resorts' %}" class="back-btn">
+
+    </a>
+
+    <div class="resort-card">
+
+        <!-- Resort Image -->
+        <img src="{{ resort.picture.url }}"
+             class="resort-image"
+             alt="{{ resort.name }}">
+
+        <div class="content">
+
+            <!-- Resort Description -->
+            <span class="category">
+                Resort
+            </span>
+
+            <!-- Resort Name -->
+            <h1 class="resort-name">
+                {{ resort.name }}
+            </h1>
+
+            <!-- Price -->
+            <div class="price">
+                ₹{{ resort.price }}
+            </div>
+
+            <!-- Description -->
+            <p class="description">
+                {{ resort.description }}
+            </p>
+
+
+            <!-- Facilities -->
+            <h3 class="section-title">
+                Resort Facilities
+            </h3>
+
+            <div class="row">
+
+                {% for facility in resort.facilities.all %}
+
+                    <div class="col-md-4 col-sm-6">
+
+                        <div class="facility-box">
+
+                            <div class="facility-icon">
+                                🏊
+                            </div>
+
+                            <div class="facility-name
+                                {% if facility.pool %}
+                                    available
+                                {% else %}
+                                    not-available
+                                {% endif %}">
+
+                                Swimming Pool
+
+                            </div>
+
+                            <small>
+                                {% if facility.pool %}
+                                    Available
+                                {% else %}
+                                    Not Available
+                                {% endif %}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4 col-sm-6">
+
+                        <div class="facility-box">
+
+                            <div class="facility-icon">
+                                🍳
+                            </div>
+
+                            <div class="facility-name
+                                {% if facility.kitchen %}
+                                    available
+                                {% else %}
+                                    not-available
+                                {% endif %}">
+
+                                Kitchen
+
+                            </div>
+
+                            <small>
+                                {% if facility.kitchen %}
+                                    Available
+                                {% else %}
+                                    Not Available
+                                {% endif %}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4 col-sm-6">
+
+                        <div class="facility-box">
+
+                            <div class="facility-icon">
+                                📶
+                            </div>
+
+                            <div class="facility-name
+                                {% if facility.wifi %}
+                                    available
+                                {% else %}
+                                    not-available
+                                {% endif %}">
+
+                                WiFi
+
+                            </div>
+
+                            <small>
+                                {% if facility.wifi %}
+                                    Available
+                                {% else %}
+                                    Not Available
+                                {% endif %}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4 col-sm-6">
+
+                        <div class="facility-box">
+
+                            <div class="facility-icon">
+                                🌳
+                            </div>
+
+                            <div class="facility-name
+                                {% if facility.lawn %}
+                                    available
+                                {% else %}
+                                    not-available
+                                {% endif %}">
+
+                                Lawn
+
+                            </div>
+
+                            <small>
+                                {% if facility.lawn %}
+                                    Available
+                                {% else %}
+                                    Not Available
+                                {% endif %}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4 col-sm-6">
+
+                        <div class="facility-box">
+
+                            <div class="facility-icon">
+                                🌅
+                            </div>
+
+                            <div class="facility-name
+                                {% if facility.balcony %}
+                                    available
+                                {% else %}
+                                    not-available
+                                {% endif %}">
+
+                                Balcony
+
+                            </div>
+
+                            <small>
+                                {% if facility.balcony %}
+                                    Available
+                                {% else %}
+                                    Not Available
+                                {% endif %}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- Booking -->
+            <a href="#" class="book-btn">
+                Schedule a Visit
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

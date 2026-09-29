@@ -1,0 +1,33 @@
+{% extends 'admin/admin_base.html' %}
+
+
+{% block content %}
+
+
+
+
+<h1> Customer List</h1>
+
+
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th></th>
+        <th></th>
+    </tr>
+    {% for i in data %}
+    <tr>
+        <td>{{i.name}}</td>
+        <td>{{i.contact_number}}</td>
+        <td>{{i.email}}</td>
+        <td>{{i.address}}</td>
+        <td><a href="{% url 'update_customer' i.id %}" class="btn btn-primary">Update</a></td>
+        <td><a href="{% url 'delete_customer' i.id %}" class="btn btn-primary">Delete</a></td>
+    </tr>
+     {% endfor %}
+</table>
+{% endblock %}
+

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Available Slots</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+    <style>
+
+        body {
+            background: #f5f7fb;
+            font-family: Arial, sans-serif;
+        }
+
+        /* BIG OUTER CARD */
+
+        .booking-container {
+            background: white;
+            border-radius: 25px;
+            padding: 45px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        /* HEADING */
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h2 {
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #777;
+        }
+
+        /* SLOT CARD */
+
+        .slot-card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            border: 1px solid #eeeeee;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.06);
+            transition: 0.3s;
+        }
+
+        .slot-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+        }
+
+        /* HEADER OF SLOT */
+
+        .slot-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .calendar-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: #eef4ff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 22px;
+            color: #0d6efd;
+        }
+
+        .slot-header h5 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .available {
+            font-size: 13px;
+            color: #198754;
+        }
+
+        /* DATE BOX */
+
+        .date-box {
+            background: #f8f9fc;
+            border-radius: 14px;
+            padding: 18px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .date-item {
+            text-align: center;
+        }
+
+        .date-label {
+            font-size: 11px;
+            color: #888;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .date-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #222;
+        }
+
+        .arrow {
+            font-size: 22px;
+            color: #aaa;
+        }
+
+        /* BOOK BUTTON */
+
+        .book-btn {
+            width: 100%;
+            margin-top: 22px;
+            padding: 12px;
+
+            border-radius: 10px;
+            border: none;
+
+            background: #0d6efd;
+            color: white;
+
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .book-btn:hover {
+            background: #0b5ed7;
+        }
+
+        /* EMPTY */
+
+        .empty-slot {
+            text-align: center;
+            padding: 50px;
+            color: #777;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container py-5">
+
+    <!-- BIG CARD -->
+
+    <div class="booking-container">
+
+        <!-- TITLE -->
+
+        <div class="page-header">
+
+            <h2>Available Booking Slots</h2>
+
+            <p>
+                Choose your preferred dates for your stay
+            </p>
+
+        </div>
+
+
+        <!-- SLOT CARDS -->
+
+        <div class="row g-4">
+
+{% for facility in facilities %}
+
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="slot-card">
+
+                    <!-- SLOT TITLE -->
+
+                    <div class="slot-header">
+
+                        <div class="calendar-icon">
+                            <i class="bi bi-calendar3"></i>
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Available Slot
+                            </h5>
+
+                            <span class="available">
+                                ● Available
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DATE -->
+
+                    <div class="date-box">
+
+                        <div class="date-item">
+
+                            <div class="date-label">
+                                FROM
+                            </div>
+
+                            <div class="date-value">
+                                {{ facility.from_date }}
+                            </div>
+
+                        </div>
+
+
+                        <div class="arrow">
+                            →
+                        </div>
+
+
+                        <div class="date-item">
+
+                            <div class="date-label">
+                                TO
+                            </div>
+
+                            <div class="date-value">
+                                {{ facility.to_date }}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BOOK BUTTON -->
+
+
+           <a href="{% url'booking' facility.id %}" class="book-btn">
+                        <i class="bi bi-calendar-check me-2"></i>
+
+                        Book Slot
+    </a>
+
+
+
+                </div>
+
+            </div>
+
+
+            {% empty %}
+
+            <div class="col-12">
+
+                <div class="empty-slot">
+
+                    <i class="bi bi-calendar-x fs-1"></i>
+
+                    <h4 class="mt-3">
+                        No Slots Available
+                    </h4>
+
+                    <p>
+                        There are currently no available booking dates.
+                    </p>
+
+                </div>
+
+            </div>
+
+{% endfor %}
+        </div>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>

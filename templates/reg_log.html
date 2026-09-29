@@ -39,20 +39,32 @@
                         <form id="login-form" class="form" action="" method="post">
                             <h3 class="text-center text-info">Login</h3>
                             <div class="form-group">
-                                <label for="username" class="text-info">Username:</label><br>
-                                <input type="text" name="username" id="username" class="form-control">
+                                <label for="username"  class="text-info">Username:</label><br>
+                                <input type="username" name="uname" id="username" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Password:</label><br>
-                                <input type="text" name="password" id="password" class="form-control">
+                                <input type="password" name="password" id="password" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                                <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                                <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label>
+                                <br>
+
+
+<!--                                <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">-->
+                                 <form method="POST">
+                                            {% csrf_token %}
+
+
+                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                                                </form>
+                                 <a href="{% url 'User_Registration' %}" class="text-info" style="margin-left: 270px">Register here</a>
                             </div>
-                            <div id="register-link" class="text-right">
-                                <a href="#" class="text-info">Register here</a>
+
+                            <div>
+                                <p>If you want to register as Owner  :<a href="{% url 'owner_Registration' %}" class="text-info" >Register Owner</a></p>
                             </div>
+
                         </form>
                     </div>
                 </div>

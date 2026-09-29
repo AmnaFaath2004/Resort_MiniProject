@@ -37,8 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-     'Booking_app'
+     'Booking_app',
+    'crispy_forms',
+    "crispy_bootstrap5"
 ]
+AUTH_USER_MODEL = 'Booking_app.Login'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -68,15 +71,20 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'restaurant_project.wsgi.application'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "BOOKING_DB",
+        "USER": "postgres",
+        "PASSWORD": "1234",
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
     }
 }
 
@@ -127,3 +135,5 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
