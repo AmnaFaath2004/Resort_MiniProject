@@ -86,3 +86,18 @@ def logout_view(request):
     return redirect('Login')
 
 
+def To_dashBoard_fromLanding(request):
+    logged_person=request.user
+    if logged_person is not None:
+        login(request, logged_person)
+        if logged_person.is_staff:
+            print('admin')
+            return redirect('admin_dash')
+        elif logged_person.is_owner:
+            return redirect('owner_dash')
+        elif logged_person.is_user:
+            return redirect('customer_dash')
+    else:
+        print("Invalid Credentials")
+
+

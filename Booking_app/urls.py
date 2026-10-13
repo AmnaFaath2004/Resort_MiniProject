@@ -10,6 +10,7 @@ path("dash_board",views.dash_board,name="dash_board"),
  path('',views.listing_resorts,name='listing_resorts'),
 
  path('logout_view',views.logout_view,name='logout_view'),
+ path('To_dashBoard_fromLanding',views.To_dashBoard_fromLanding,name='To_dashBoard_fromLanding'),
 
 
 
@@ -32,6 +33,10 @@ path('view_resort/', owner_views.view_resort, name='view_resort'),
  path('slot/<int:fec_id>/',owner_views.slot,name='slot'),
  path('view_slot_Owner',owner_views.view_slot_Owner,name='view_slot_Owner'),
  path('delete_slot/<int:id>/',owner_views.delete_slot,name='delete_slot'),
+ path('viewing_bookings',owner_views.viewing_bookings,name='viewing_bookings'),
+ path('for_approval/<int:id>/',owner_views.for_approval,name='for_approval'),
+ path('for_reject/<int:id>/',owner_views.for_reject,name='for_reject'),
+ path('view_messages',owner_views.view_messages,name='view_messages'),
 
 
 
@@ -40,7 +45,10 @@ path('view_resort/', owner_views.view_resort, name='view_resort'),
  path('update_customer_profile/<int:id>/',custumer_views.update_customer_profile,name='update_customer_profile'),
 path('view_slot/<int:resort_id>/',custumer_views.view_slot,name='view_slot'),
 path('view_details/<int:id>/',custumer_views.view_details,name='view_details'),
- path('booking',custumer_views.booking,name='booking'),
+ path('select_slot/<int:id>/',custumer_views.select_slot,name='select_slot'),
+ path('booking_success',custumer_views.booking_success,name='booking_success'),
+ path('bookings_history',custumer_views.bookings_history,name='bookings_history'),
+ path('Chat_with/<int:id>/',custumer_views.Chat_with,name='Chat_with'),
 
 
 
@@ -49,6 +57,8 @@ path('view_details/<int:id>/',custumer_views.view_details,name='view_details'),
  path('view_customer',admin_views.customer_list,name='view_customer'),
  path('delete_customer/<int:id>/',admin_views.delete_customer,name='delete_customer'),
  path('update_customer/<int:id>/',admin_views.update_customer,name='update_customer'),
+ path('View_all_resort',admin_views.View_all_resort,name='View_all_resort'),
+
 
  path('view_owner',admin_views.owner_List,name='view_owner'),
  path('delete_owner/<int:id>/',admin_views.delete_owner,name='delete_owner'),

@@ -261,12 +261,17 @@
 
                     <!-- BOOK BUTTON -->
 
-
-           <a href="{% url'booking' facility.id %}" class="book-btn">
+        {% if not facility.slot_status %}
+           <a href="{% url 'select_slot' facility.id %}" class="book-btn">
                         <i class="bi bi-calendar-check me-2"></i>
 
                         Book Slot
     </a>
+                    {% else %}
+                    <a href=""
+                    class="btn disabled"
+                    >Not Avalilable</a>
+                    {% endif %}
 
 
 

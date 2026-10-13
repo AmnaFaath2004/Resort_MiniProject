@@ -1,0 +1,327 @@
+{% extends 'owner/owner_base.html' %}
+
+{% block content %}
+
+<style>
+
+    .history-page {
+        background: #f7f7f7;
+        min-height: 80vh;
+        padding: 50px 20px;
+    }
+
+    .history-container {
+        max-width: 1100px;
+        margin: auto;
+    }
+
+    /* Page heading */
+    .history-header {
+        margin-bottom: 30px;
+    }
+
+    .history-header h2 {
+        color: #111111;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .history-header p {
+        color: #777777;
+        margin: 0;
+    }
+
+    /* Main card */
+    .history-card {
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+        overflow: hidden;
+    }
+
+    /* Table */
+    .booking-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .booking-table thead {
+        background: #111111;
+        color: #ffffff;
+    }
+
+    .booking-table th {
+        padding: 16px 18px;
+        text-align: left;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .booking-table td {
+        padding: 18px;
+        border-bottom: 1px solid #eeeeee;
+        color: #333333;
+        vertical-align: middle;
+    }
+
+    .booking-table tbody tr:hover {
+        background: #fff7f3;
+    }
+
+    .booking-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    /* Booking ID */
+    .booking-id {
+        color: #f4511e;
+        font-weight: 700;
+    }
+
+    /* Resort name */
+    .resort-name {
+        color: #111111;
+        font-weight: 700;
+    }
+
+    /* Dates */
+    .date-text {
+        color: #555555;
+        font-size: 14px;
+    }
+
+    /* Status */
+    .status {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 20px;
+        background: #eaf7ee;
+        color: #218838;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    /* Empty state */
+    .empty-bookings {
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+    .empty-bookings h4 {
+        color: #111111;
+        font-weight: 700;
+    }
+
+    .empty-bookings p {
+        color: #777777;
+    }
+
+    .browse-btn {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 11px 24px;
+        background: #f4511e;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 600;
+    }
+
+    .browse-btn:hover {
+        background: #d94316;
+        color: #ffffff;
+    }
+
+
+    /* Mobile */
+    @media (max-width: 768px) {
+
+        .history-page {
+            padding: 30px 10px;
+        }
+
+        .history-card {
+            overflow-x: auto;
+        }
+
+        .booking-table {
+            min-width: 750px;
+        }
+
+    }
+
+</style>
+
+
+<div class="history-page">
+
+    <div class="history-container">
+
+        <!-- Heading -->
+
+        <div class="history-header">
+
+            <h2>
+                Booking Details
+            </h2>
+
+            <p>
+                View all your resort bookings and reservation details.
+            </p>
+
+        </div>
+
+
+        <!-- Booking Table -->
+
+        <div class="history-card">
+
+            {% if history %}
+
+                <table class="booking-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>#</th>
+
+                            <th>Resort</th>
+
+<!--                            <th>Location</th>-->
+
+                            <th>From</th>
+
+                            <th>To</th>
+
+                            <th>Price</th>
+
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for booking in history %}
+
+                        <tr>
+
+                            <!-- Booking number -->
+
+                            <td>
+                                <span class="booking-id">
+                                    {{ forloop.counter }}
+                                </span>
+                            </td>
+
+
+                            <!-- Resort -->
+
+                            <td>
+
+                                <span class="resort-name">
+                                    {{ booking.slot.fecility.resort.name }}
+                                </span>
+
+                            </td>
+
+
+                            <!-- Location -->
+
+<!--                            <td>-->
+<!--                                {{ booking.schedule.facilities.resort.location }}-->
+<!--                            </td>-->
+
+
+                            <!-- From -->
+
+                            <td>
+
+                                <span class="date-text">
+                                    {{ booking.slot.from_date }}
+                                </span>
+
+                            </td>
+
+
+                            <!-- To -->
+
+                            <td>
+
+                                <span class="date-text">
+                                    {{ booking.slot.to_date }}
+                                </span>
+
+                            </td>
+
+
+                            <!-- Price -->
+
+                            <td>
+
+                                {{ booking.slot.fecility.resort.price }}
+
+                            </td>
+
+
+                            <!-- Status -->
+
+                            <td>
+
+                                <span class="status">
+                                     {% if booking.status == 0 %}
+                                    <a href="{% url 'for_approval' booking.id %}" class="btn btn-success">Approve</a>
+                                    <a href="{% url 'for_reject' booking.id %}" class="btn btn-danger">Rejected</a>
+                                    {% elif booking.status == 1 %}
+                                    <h4>Confirmed</h4>
+                                    {% else %}
+                                    <h4>Rejected</h4>
+                                    {% endif %}
+
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+
+            {% else %}
+
+                <!-- No bookings -->
+
+                <div class="empty-bookings">
+
+                    <h4>
+                        No Bookings Yet
+                    </h4>
+
+                    <p>
+                        You haven't made any resort bookings yet.
+                    </p>
+
+                    <a href="{% url 'view_resort' %}" class="browse-btn">
+                        Browse Resorts
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from Booking_app.forms import UserForm, ownerForm, resortForm, facilitiesForm, slote_form
-from Booking_app.models import User, Owner, Resort, Facilities, Slots
+from Booking_app.models import User, Owner, Resort, Facilities, Slots, Booking, Chat
 
 
 def owner_dash(request):
@@ -126,3 +126,26 @@ def delete_slot(request,id):
     slot=Slots.objects.get(id=id,fecility__resort__owner=owner)
     slot.delete()
     return redirect('view_slot_Owner')
+
+def viewing_bookings(request):
+    owner = Owner.objects.get(user=request.user)
+    history = Booking.objects.filter(slot__fecility__resort__owner=owner)
+    return render(request,'owner/viewing_bookings.html',{'history':history})
+
+def for_approval(request,id):
+    bookings=Booking.objects.get(id=id)
+    bookings.status = 1
+    bookings.save()
+    return redirect('viewing_bookings')
+
+def for_reject(request,id):
+    bookings=Booking.objects.get(id=id)
+    bookings.status = 2
+    bookings.save()
+    return redirect('viewing_bookings')
+
+
+def view_messages(request):
+    owner = Owner.objects.get(user=request.user)
+    messages = Chat.objects.filter(resort__owner=owner)
+    return render(request,'owner/view_messages.html',{'messages':messages})

@@ -1,0 +1,399 @@
+
+{% extends 'admin/admin_base.html' %}
+
+
+{% block content %}
+
+<style>
+
+
+    /* Delete Resort Button */
+    .delete-form {
+        margin: 18px 0 0;
+    }
+
+    .delete-resort-btn {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 13px 18px;
+
+        background: #ffffff;
+        color: #c0392b;
+        border: 1px solid #e7b8b4;
+        border-radius: 10px;
+
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .delete-resort-btn i {
+        font-size: 17px;
+    }
+
+    .delete-resort-btn:hover {
+        background: #c0392b;
+        color: #ffffff;
+        border-color: #c0392b;
+        box-shadow: 0 5px 14px rgba(192, 57, 43, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .delete-resort-btn:active {
+        transform: scale(0.98);
+    }
+
+    .delete-resort-btn:focus-visible {
+        outline: 3px solid rgba(192, 57, 43, 0.25);
+        outline-offset: 3px;
+    }
+
+
+    .resort-page {
+        background: #f5f7f4;
+        min-height: 100vh;
+        padding: 45px 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .page-heading {
+        color: #193b2b;
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+        color: #778078;
+        margin-bottom: 30px;
+    }
+
+    .resort-count {
+        background: #e2eee5;
+        color: #24563a;
+        padding: 8px 15px;
+        border-radius: 25px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .resort-card {
+        background: #fff;
+        border: 1px solid #e8ece8;
+        border-radius: 18px;
+        overflow: hidden;
+        height: 100%;
+        box-shadow: 0 5px 20px rgba(25, 59, 43, 0.06);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .resort-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 28px rgba(25, 59, 43, 0.12);
+    }
+
+    .resort-image-wrapper {
+        position: relative;
+        height: 230px;
+        overflow: hidden;
+        background: #e8ece8;
+    }
+
+    .resort-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .resort-card:hover .resort-image {
+        transform: scale(1.04);
+    }
+
+    .resort-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: #fff;
+        color: #24563a;
+        padding: 7px 12px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+    .resort-content {
+        padding: 22px;
+    }
+
+    .resort-title {
+        font-size: 21px;
+        font-weight: 700;
+        color: #193b2b;
+        margin-bottom: 9px;
+    }
+
+    .resort-description {
+        color: #7b837d;
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: 18px;
+        min-height: 48px;
+    }
+
+    .detail-label {
+        color: #8a938c;
+        font-size: 12px;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+    }
+
+    .detail-value {
+        color: #303a33;
+        font-size: 14px;
+        font-weight: 600;
+        overflow-wrap: anywhere;
+    }
+
+    .price {
+        color: #246442;
+        font-size: 23px;
+        font-weight: 700;
+    }
+
+    .owner-section {
+        background: #f5f8f5;
+        border: 1px solid #e8eee8;
+        border-radius: 12px;
+        padding: 15px;
+        margin-top: 18px;
+    }
+
+    .owner-heading {
+        color: #193b2b;
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 14px;
+    }
+
+    .owner-avatar {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        border-radius: 50%;
+        background: #dceade;
+        color: #24563a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 17px;
+    }
+
+    .owner-name {
+        font-size: 14px;
+        font-weight: 700;
+        color: #303a33;
+        margin-bottom: 5px;
+    }
+
+    .owner-email {
+        color: #6e7971;
+        font-size: 12px;
+        overflow-wrap: anywhere;
+        margin: 0;
+    }
+
+    .resort-footer {
+        padding-top: 18px;
+        margin-top: 18px;
+        border-top: 1px solid #edf0ed;
+    }
+
+    .view-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        text-decoration: none;
+        background: #24563a;
+        color: #fff;
+        padding: 12px;
+        border-radius: 9px;
+        font-size: 14px;
+        font-weight: 600;
+        transition: background 0.2s ease;
+    }
+
+    .view-btn:hover {
+        background: #193b2b;
+        color: #fff;
+    }
+
+    .empty-state {
+        background: #fff;
+        border-radius: 16px;
+        padding: 60px 20px;
+        text-align: center;
+        color: #778078;
+        border: 1px dashed #cdd8ce;
+    }
+
+    @media (max-width: 576px) {
+        .resort-page {
+            padding: 25px 12px;
+        }
+
+        .page-heading {
+            font-size: 26px;
+        }
+
+        .resort-image-wrapper {
+            height: 210px;
+        }
+
+        .resort-content {
+            padding: 18px;
+        }
+
+
+    }
+</style>
+
+<div class="resort-page">
+    <div class="container">
+
+        <!-- Page Heading -->
+        <div class="d-flex flex-wrap justify-content-between
+                    align-items-center gap-3 mb-4">
+
+            <div>
+                <h2 class="page-heading">Explore All Resorts</h2>
+                <p class="page-subtitle">
+                    Discover properties and their owner information.
+                </p>
+            </div>
+
+            <span class="resort-count">
+                {{ resorts|length }} Resorts Listed
+            </span>
+        </div>
+
+        <!-- Resort Cards -->
+        <div class="row g-4">
+
+            {% for i in resorts %}
+
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="resort-card">
+
+                    <!-- Resort Image -->
+                    <div class="resort-image-wrapper">
+
+                        {% if i.picture %}
+                        <img src="{{ i.picture.url }}"
+                             class="resort-image"
+                             alt="{{ i.name }}">
+                        {% else %}
+                        <div class="d-flex justify-content-center
+                                    align-items-center h-100">
+                            No Image Available
+                        </div>
+                        {% endif %}
+
+                        <span class="resort-badge">RESORT</span>
+
+                    </div>
+
+                    <div class="resort-content">
+
+                        <!-- Resort Information -->
+                        <h3 class="resort-title">{{ i.name }}</h3>
+
+                        <p class="resort-description">
+                            {{ i.description }}
+                        </p>
+
+                        <div class="mb-3">
+                            <p class="detail-label">Price per night</p>
+                            <div class="price">
+                                ₹{{ i.price }}
+                                <small class="text-muted fs-6">
+                                    / night
+                                </small>
+                            </div>
+                        </div>
+
+                        <hr style="border-color: #e8ece8;">
+
+                        <!-- Owner Information -->
+                        <div class="owner-section">
+
+                            <h6 class="owner-heading">
+                                Property Owner
+                            </h6>
+
+                            <div class="d-flex align-items-center gap-3">
+
+                                <div class="owner-avatar">
+                                    {{ i.owner.user.name|first|default:"O"|upper }}
+                                </div>
+
+                                <div>
+                                    <p class="owner-name">
+                                        {% if i.owner.user.name  %}
+                                            {{ i.owner.user.name }}
+
+                                        {% else %}
+                                            {{ i.owner }}
+                                        {% endif %}
+                                    </p>
+
+                                    <p class="owner-email">
+                                        {{ i.owner.email|default:"Email not available" }}
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                        <!-- View Details Button -->
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-12">
+                <div class="empty-state">
+                    <h4>No Resorts Available</h4>
+                    <p class="mb-0">
+                        Resort listings will appear here when available.
+                    </p>
+
+                </div>
+            </div>
+
+            <!-- Delete Resort Button -->
+
+
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

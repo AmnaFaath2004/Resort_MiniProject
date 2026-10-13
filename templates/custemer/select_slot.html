@@ -1,0 +1,396 @@
+{% extends 'custemer/custemer_base.html' %}
+
+{% block content %}
+
+<style>
+
+    /* Main page */
+    .booking-page {
+        background: #f7f7f7;
+        min-height: 80vh;
+        padding: 60px 0;
+    }
+
+    /* Main booking card */
+    .booking-card {
+        background: #ffffff;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+    }
+
+    /* Header */
+    .booking-header {
+        background: #ffffff;
+        padding: 28px 32px;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    .booking-header h2 {
+        color: #111111;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .booking-header p {
+        color: #777777;
+        margin: 6px 0 0;
+    }
+
+    /* Content */
+    .booking-body {
+        padding: 32px;
+    }
+
+    /* Section titles */
+    .section-title {
+        color: #111111;
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .section-title::before {
+        content: "";
+        width: 4px;
+        height: 22px;
+        background: #f4511e;
+        border-radius: 3px;
+        display: inline-block;
+    }
+
+    /* Information boxes */
+    .info-box {
+        background: #fafafa;
+        border: 1px solid #eeeeee;
+        border-radius: 6px;
+        padding: 18px 20px;
+        margin-bottom: 28px;
+    }
+
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 10px 0;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    .info-row:last-child {
+        border-bottom: none;
+    }
+
+    .info-label {
+        color: #777777;
+        font-weight: 500;
+    }
+
+    .info-value {
+        color: #111111;
+        font-weight: 600;
+        text-align: right;
+    }
+
+    /* Selected slot */
+    .slot-box {
+        background: #fff7f3;
+        border: 1px solid #ffd8c9;
+        border-radius: 6px;
+        padding: 20px;
+        margin-bottom: 28px;
+    }
+
+    .slot-date {
+        color: #f4511e;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    /* Resort */
+    .resort-box {
+        background: #ffffff;
+        border: 1px solid #eeeeee;
+        border-radius: 6px;
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+    /* Confirm button */
+    .confirm-btn {
+        width: 100%;
+        border: none;
+        background: #f4511e;
+        color: #ffffff;
+        padding: 14px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: 600;
+        transition: 0.3s ease;
+    }
+
+    .confirm-btn:hover {
+        background: #d94316;
+        transform: translateY(-1px);
+        box-shadow: 0 5px 15px rgba(244, 81, 30, 0.25);
+    }
+
+    /* Back button */
+    .back-btn {
+        display: inline-block;
+        margin-top: 15px;
+        color: #111111;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .back-btn:hover {
+        color: #f4511e;
+    }
+
+    /* Responsive */
+    @media (max-width: 576px) {
+
+        .booking-page {
+            padding: 30px 15px;
+        }
+
+        .booking-body {
+            padding: 22px;
+        }
+
+        .booking-header {
+            padding: 22px;
+        }
+
+        .info-row {
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .info-value {
+            text-align: left;
+        }
+
+    }
+
+</style>
+
+
+<div class="booking-page">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-7 col-md-9">
+
+                <div class="booking-card">
+
+
+                    <!-- Header -->
+
+                    <div class="booking-header">
+
+                        <h2>
+                            Confirm Booking
+                        </h2>
+
+                        <p>
+                            Review your booking details before confirming.
+                        </p>
+
+                    </div>
+
+
+                    <div class="booking-body">
+
+
+                        <!-- Customer Details -->
+
+                        <div class="section-title">
+                            Customer Details
+                        </div>
+
+                        <div class="info-box">
+
+                            <div class="info-row">
+                                <span class="info-label">
+                                    Name
+                                </span>
+
+                                <span class="info-value">
+                                 {{ user.name }}
+                                </span>
+                            </div>
+
+
+                            <div class="info-row">
+                                <span class="info-label">
+                                    Phone
+                                </span>
+
+                                <span class="info-value">
+                                 {{ user.contact_number }}
+                                </span>
+                            </div>
+
+
+                            <div class="info-row">
+                                <span class="info-label">
+                                    Email
+                                </span>
+
+                                <span class="info-value">
+                                    {{ user.email }}
+                                </span>
+                            </div>
+
+
+                            <div class="info-row">
+                                <span class="info-label">
+                                    Address
+                                </span>
+
+                                <span class="info-value">
+                                    {{ user.address }}
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <!-- Selected Slot -->
+
+                        <div class="section-title">
+                            Selected Slot
+                        </div>
+
+                        <div class="slot-box">
+
+                            <div class="info-row">
+
+                                <span class="info-label">
+                                    From
+                                </span>
+
+                                <span class="slot-date">
+                                    {{ slot.from_date }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="info-row">
+
+                                <span class="info-label">
+                                    To
+                                </span>
+
+                                <span class="slot-date">
+                                    {{ slot.to_date }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Resort -->
+
+                        <div class="section-title">
+                            Resort Details
+                        </div>
+
+                        <div class="resort-box">
+
+                            <div class="info-row">
+
+                                <span class="info-label">
+                                    Resort Name
+                                </span>
+
+                                <span class="info-value">
+                                    {{ slot.fecility.resort.name }}
+                                </span>
+
+                            </div>
+
+
+<!--                            <div class="info-row">-->
+
+<!--                                <span class="info-label">-->
+<!--                                    Location-->
+<!--                                </span>-->
+
+<!--                                <span class="info-value">-->
+<!--                                    {{ slot.facilities.resort.location }}-->
+<!--                                </span>-->
+
+<!--                            </div>-->
+
+
+                            <div class="info-row">
+
+                                <span class="info-label">
+                                   Discription
+                                </span>
+
+                                <span class="info-value">
+                                 {{ slot.fecility.resort.description }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="info-row">
+
+                                <span class="info-label">
+                                    Pricing
+                                </span>
+
+                                <span class="info-value">
+                                  {{ slot.fecility.resort.price }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Confirm -->
+
+                        <form method="POST">
+
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="confirm-btn"
+                            >
+                                Confirm Booking
+                            </button>
+
+                        </form>
+
+
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

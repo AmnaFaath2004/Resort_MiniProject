@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from Booking_app.models import Login, Owner, User, Resort, Facilities, Slots
+from Booking_app.models import Login, Owner, User, Resort, Facilities, Slots, Chat
 
 
 class loginForm(UserCreationForm):
@@ -35,3 +35,4 @@ class slote_form(forms.ModelForm):
     class Meta:
         model=Slots
         fields=('from_date','to_date')
+

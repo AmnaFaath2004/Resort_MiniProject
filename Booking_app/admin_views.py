@@ -3,7 +3,7 @@
 from django.shortcuts import render, redirect
 
 from Booking_app.forms import UserForm, ownerForm
-from Booking_app.models import User, Owner
+from Booking_app.models import User, Owner, Resort
 
 
 def admin_dash(request):
@@ -56,3 +56,8 @@ def update_owner(request,id):
             form1.save()
             return redirect('view_owner')
     return render(request,'admin/update_owner.html',{'form':form})
+
+def View_all_resort(request):
+    resort=Resort.objects.all()
+    return render(request,'admin/view_all_resort.html',{'resorts':resort})
+

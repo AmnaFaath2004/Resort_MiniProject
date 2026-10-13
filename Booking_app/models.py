@@ -48,8 +48,17 @@ class Slots(models.Model):
     fecility=models.ForeignKey(Facilities,on_delete=models.CASCADE,related_name='facilities')
     from_date=models.DateField()
     to_date=models.DateField()
+    slot_status=models.BooleanField(default=0)
 
 
 class Booking(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='bookings')
     slot=models.ForeignKey(Slots,on_delete=models.CASCADE,related_name='bookings')
+    status=models.IntegerField(default=0)
+    time_date=models.DateField(auto_now=True)
+
+class Chat(models.Model):
+    resort=models.ForeignKey(Resort,on_delete=models.CASCADE,related_name='chats')
+    customer=models.ForeignKey(User,on_delete=models.CASCADE,related_name='chats')
+    message=models.TextField()
+    reply=models.TextField(blank=True,null=True)

@@ -1,0 +1,49 @@
+```html
+{% extends 'owner/owner_base.html' %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <h3 class="fw-semibold mb-1">Customer Messages</h3>
+    <p class="text-muted mb-4">Messages received about your resorts</p>
+
+    <div class="card border-0 shadow-sm rounded-3">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-light">
+                    <tr>
+                        <th class="py-3 px-4">Resort Name</th>
+                        <th class="py-3 px-4">Message</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for i in messages %}
+                    <tr>
+                        <td class="px-4 py-3 fw-medium">
+                            {{ i.resort.name }}
+                        </td>
+
+                        <td class="px-4 py-3 text-secondary">
+                            {{ i.message }}
+                        </td>
+                    </tr>
+
+                    {% empty %}
+                    <tr>
+                        <td colspan="2" class="text-center py-5 text-muted">
+                            No customer messages yet.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
