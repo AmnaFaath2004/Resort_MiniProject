@@ -16,6 +16,7 @@
                     <tr>
                         <th class="py-3 px-4">Resort Name</th>
                         <th class="py-3 px-4">Message</th>
+                        <th class="py-3 px-4">Reply</th>
                     </tr>
                 </thead>
 
@@ -28,6 +29,14 @@
 
                         <td class="px-4 py-3 text-secondary">
                             {{ i.message }}
+                        </td>
+                        <td>
+                            {% if i.reply %}
+                            <span>{{i.reply}}</span>
+                            {% else %}
+                            <a href="{% url 'replying' i.id %}">Reply</a>
+
+                            {% endif %}
                         </td>
                     </tr>
 

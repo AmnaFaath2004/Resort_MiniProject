@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from Booking_app.forms import loginForm, ownerForm, UserForm
@@ -6,9 +7,11 @@ from Booking_app.models import Facilities, Resort
 
 
 # Create your views here.
+@login_required(login_url='Login')
 def Rest_index(request):
     return render(request,'index.html')
 
+@login_required(login_url='Login')
 def dash_board(request):
     return render(request,'dashboard.html')
 
@@ -74,6 +77,7 @@ def User_Registration(request):
 
     return render(request,'user_Form.html',{'user':user,'data':data})
 
+@login_required(login_url='Login')
 def listing_resorts(request):
     resorts=Resort.objects.all()
 
@@ -85,7 +89,7 @@ def logout_view(request):
     logout(request)
     return redirect('Login')
 
-
+@login_required(login_url='Login')
 def To_dashBoard_fromLanding(request):
     logged_person=request.user
     if logged_person is not None:

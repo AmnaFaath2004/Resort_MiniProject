@@ -37,6 +37,7 @@ path('view_resort/', owner_views.view_resort, name='view_resort'),
  path('for_approval/<int:id>/',owner_views.for_approval,name='for_approval'),
  path('for_reject/<int:id>/',owner_views.for_reject,name='for_reject'),
  path('view_messages',owner_views.view_messages,name='view_messages'),
+ path('replying/<int:id>/',owner_views.replying,name='replying'),
 
 
 
@@ -49,6 +50,7 @@ path('view_details/<int:id>/',custumer_views.view_details,name='view_details'),
  path('booking_success',custumer_views.booking_success,name='booking_success'),
  path('bookings_history',custumer_views.bookings_history,name='bookings_history'),
  path('Chat_with/<int:id>/',custumer_views.Chat_with,name='Chat_with'),
+ path('view_chat',custumer_views.view_chat,name='view_chat'),
 
 
 

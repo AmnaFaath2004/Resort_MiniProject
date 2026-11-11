@@ -198,6 +198,7 @@
 
                             <th>Status</th>
                             <th>Chat With</th>
+                            <th>Reply</th>
 
                         </tr>
 
@@ -287,6 +288,15 @@
                             </td>
                             <td>
                                 <a href="{% url 'Chat_with' booking.id %}">Message</a>
+                            </td>
+                            <td>
+                                if booking.reply == 'null':
+                                no message
+                                else:
+
+
+
+                              {{booking.reply}}
                             </td>
 
                         </tr>

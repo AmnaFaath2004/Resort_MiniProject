@@ -261,7 +261,7 @@
 
                     <!-- BOOK BUTTON -->
 
-        {% if not facility.slot_status %}
+        {% if  facility.slot_status == 0 %}
            <a href="{% url 'select_slot' facility.id %}" class="book-btn">
                         <i class="bi bi-calendar-check me-2"></i>
 

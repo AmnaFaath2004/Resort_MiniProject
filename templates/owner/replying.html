@@ -1,0 +1,18 @@
+{% extends 'owner/owner_base.html' %}
+{% block content %}
+
+<div class="reply-box">
+  <h2>Reply to message</h2>
+  <form method="POST">
+    {% csrf_token %}
+    <textarea name="reply"
+    placeholder="Enter your reply"
+    rows="5"
+    required>
+
+    </textarea>
+    <button type="submit"> Send Reply</button>
+  </form>
+
+</div>
+{% endblock %}
