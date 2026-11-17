@@ -1,2 +1,26 @@
-media/resort/picture/pgadmin4-6.21.dmg
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Local database
+db.sqlite3
+
+# Collected static files
+staticfiles/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+
 media/resort/picture/pgadmin4-6.21.dmg

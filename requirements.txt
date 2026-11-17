@@ -1,0 +1,12 @@
+asgiref==3.12.1
+crispy-bootstrap5==2026.9
+dj-database-url==3.1.2
+djangify==1.0.0
+Django==6.1
+django-crispy-forms==2.7
+django-debug-toolbar==8.0.0
+gunicorn==27.0.1
+psycopg==3.3.9
+psycopg-binary==3.3.9
+sqlparse==0.6.0
+whitenoise==6.12.0
