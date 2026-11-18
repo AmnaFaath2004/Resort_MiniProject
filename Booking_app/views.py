@@ -7,7 +7,7 @@ from Booking_app.models import Facilities, Resort
 
 
 # Create your views here.
-@login_required(login_url='Login')
+
 def Rest_index(request):
     return render(request,'index.html')
 
@@ -77,7 +77,7 @@ def User_Registration(request):
 
     return render(request,'user_Form.html',{'user':user,'data':data})
 
-@login_required(login_url='Login')
+
 def listing_resorts(request):
     resorts=Resort.objects.all()
 
